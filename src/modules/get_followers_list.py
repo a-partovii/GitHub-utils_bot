@@ -1,7 +1,9 @@
 import requests as req
-from modules.delay import delay
 from datetime import datetime
 import os
+from modules.delay import delay
+from write_in_file import write_in_file
+
 
 def get_followers_list(target_username, headers, output_type):
     """
@@ -36,16 +38,14 @@ def get_followers_list(target_username, headers, output_type):
 
     if output_type == "file": # "file" or "list" (default=List)
         try:
-            os.makedirs("outputs", exist_ok=True)# Create outputs folder if it doesn't exist
+            os.makedirs("outputs", exist_ok=True) # Create outputs folder if it doesn't exist
            
             current_date = datetime.now().strftime("%Y-%m-%d_%H;%M") # Get current date and time
-            filename = f"outputs/({target_username})followers [{current_date}].txt"
+            file_path = f"outputs/({target_username})followers [{current_date}].txt"
             
-            with open(filename, "w") as file:
-                for username in followers_list:
-                    file.write(username + "\n")
+            write_in_file(file_path=file_path, input_item=followers_list, writing_mode="w")
             
-            print(f"Done! All follower usernames saved to {filename}")
+            print(f"Done! All follower usernames saved to {file_path}")
         except Exception as e:
             print(f"Writing in the file was not successful, check this error and try again: \n{e}")
     else:

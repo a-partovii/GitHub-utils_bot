@@ -25,3 +25,23 @@ def remove_items_from_file(file_path:str, items):
     new_list = [i for i in raw_list if i not in remove_set]
 
     write_in_file(file_path, new_list, writing_mode="w")
+
+def deduplicate_from_file(file_path:str):
+    """
+    Remove duplicated items from a text file.
+
+    Args:
+        file_path: path to the file, including its file extension
+    """
+    if not os.path.exists(file_path):
+        raise FileNotFoundError(file_path)
+
+    raw_list = read_txt_file(file_path)
+    seen = set()
+    new_list = []
+    for i in raw_list:
+        if i not in seen:
+            seen.add(i)
+            new_list.append(i)
+
+    write_in_file(file_path, new_list, writing_mode="w")

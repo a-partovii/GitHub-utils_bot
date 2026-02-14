@@ -1,24 +1,28 @@
-def read_txt_file(filename: str):
+from typing import List
+
+def read_txt_file(filename:str, separator:str = "\n") -> List[str]:
     """
-    Read and extract elements from the txt files.
+    Read and extract elements from a text file based on the separator type.
+
     Args:
-        filename: Path to the text file containing usernames
+        filename: Path to the file, including its file extension
+        separator_type: Type of separator ("\n" newline, "," comma, ";" semicolen, "|" pipe)
+
     Returns:
-        List of elements
+        List of extracted elements
     """
     try:
         with open(filename, "r", encoding="utf-8") as file:
-            item_list = [line.strip() for line in file if line.strip()]
-            
-        # print(f"Successfull, read {len(list)} usernames from {filename}")
-        return item_list
-    
+            content = file.read()
+
+        items_list = [
+            item.strip()
+            for item in content.split(separator)
+            if item.strip()
+            ]
+        return items_list
+
     except FileNotFoundError:
-        print(f"Error: File '{filename}' not found")
-        return []
+        raise FileNotFoundError(f"File '{filename}' not found")
     except PermissionError:
-        print(f"Error: Permission denied to read '{filename}'")
-        return []
-    except Exception as error:
-        print(f"Error reading file: {error}")
-        return []
+        raise PermissionError(f"Permission denied to read '{filename}'")

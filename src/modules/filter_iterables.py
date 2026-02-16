@@ -24,19 +24,20 @@ def filter_file(file_path:str, filter_items):
     raw_list = read_txt_file(file_path)
 
     # filter
-    new_list = [i for i in raw_list if i not in remove_set]
+    result_list = [i for i in raw_list if i not in remove_set]
 
-    write_in_file(file_path, new_list, writing_mode="w")
+    write_in_file(file_path, result_list, writing_mode="w")
 
 # -------------------------------------------------------------
-def filter_list(raw_list, filter_items, output_mode="list", file_name="filtered_list.txt"):
+def filter_list(raw_list:list, filter_items, output_mode:str = "list", file_name:str = "filtered_list.txt"):
     """
     Remove given item or a list of items from another list.
 
     Args:
-        main_list: The main list that will remove items from.
+        main_list (list): The main list that items will remove from.
         filter_items: a single item or a list of items to remove from the list.
-        output_mode: "list" to return a list (default) "file" to save it as a text file too.
+        output_mode (str): "list" to return a list (default), "file" to save it as a text file too.
+        file_name (str): the output file name (default = "filtered_list.txt")
 
     returns:
         The filtered list.
@@ -50,14 +51,15 @@ def filter_list(raw_list, filter_items, output_mode="list", file_name="filtered_
         raise ValueError(f"Invalid <filter_items>: {error}")
     
     # filter
-    new_list = [i for i in raw_list if i not in remove_set]
+    result_list = [i for i in raw_list if i not in remove_set]
+
     if output_mode not in ("list", "file"):
         raise ValueError('<output_mode> must be "list" or "file"')
     
     elif output_mode == "file":
-        write_in_file(f"outputs/{file_name}", new_list, writing_mode="w")
+        write_in_file(f"outputs/{file_name}", result_list, writing_mode="w")
 
-    return new_list
+    return result_list
 
 # -------------------------------------------------------------
 def deduplicate_file_content(file_path:str):
@@ -72,10 +74,38 @@ def deduplicate_file_content(file_path:str):
 
     raw_list = read_txt_file(file_path)
     seen = set()
-    new_list = []
+    result_list = []
     for i in raw_list:
         if i not in seen:
             seen.add(i)
-            new_list.append(i)
+            result_list.append(i)
 
-    write_in_file(file_path, new_list, writing_mode="w")
+    write_in_file(file_path, result_list, writing_mode="w")
+
+# -------------------------------------------------------------
+def deduplicate_list_content(raw_list:list, output_mode="list", file_name="deduplicate_list.txt"):
+    """
+    Remove duplicated items from a given list.
+
+    Args:
+        raw_list (list): The main list that will be filtered.
+        output_mode (str): "list" to return a list (default), "file" to save it as a text file too.
+        file_name (str): the output file name (default = "deduplicate_list.txt").
+    
+    returns: 
+        The deduplicated list.
+    """
+    seen = set()
+    result_list = []
+    for i in raw_list:
+        if i not in seen:
+            seen.add(i)
+            result_list.append(i)
+
+    if output_mode not in ("list", "file"):
+        raise ValueError('<output_mode> must be "list" or "file"')
+    
+    elif output_mode == "file":
+        write_in_file(f"outputs/{file_name}", result_list, writing_mode="w")
+    
+    return result_list

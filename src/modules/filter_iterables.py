@@ -2,7 +2,7 @@ import os
 from read_txt_file import read_txt_file
 from write_in_file import write_in_file
 
-def remove_items_from_file(file_path:str, items):
+def filter_file(file_path:str, filter_items):
     """
     Remove given item or a list of items from a text file.
 
@@ -13,10 +13,10 @@ def remove_items_from_file(file_path:str, items):
     if not os.path.exists(file_path):
         raise FileNotFoundError(file_path)
 
-    if isinstance(items, list):
-        remove_set = {str(i).strip() for i in items}
+    if isinstance(filter_items, list):
+        remove_set = {str(i).strip() for i in filter_items}
     else:
-        remove_set = {str(items).strip()}
+        remove_set = {str(filter_items).strip()}
 
     # read file and make it a list
     raw_list = read_txt_file(file_path)
@@ -26,7 +26,7 @@ def remove_items_from_file(file_path:str, items):
 
     write_in_file(file_path, new_list, writing_mode="w")
 
-def deduplicate_from_file(file_path:str):
+def deduplicate_file_content(file_path:str):
     """
     Remove duplicated items from a text file.
 

@@ -1,4 +1,4 @@
-def write_in_file(file_path:str, input_item, writing_mode:str = "a", separator:str = "\n"):
+def write_file(file_path:str, input_item, writing_mode:str = "a", separator:str = "\n"):
     """
     Write one or multiple items into a text file.
 

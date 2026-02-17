@@ -1,6 +1,6 @@
 from typing import List
 
-def read_txt_file(filename:str, separator:str = "\n") -> List[str]:
+def read_txt_file(file_path:str, separator:str = "\n") -> List[str]:
     """
     Read and extract elements from a text file based on the separator type.
 
@@ -12,7 +12,7 @@ def read_txt_file(filename:str, separator:str = "\n") -> List[str]:
         List of extracted elements
     """
     try:
-        with open(filename, "r", encoding="utf-8") as file:
+        with open(file_path, "r", encoding="utf-8") as file:
             content = file.read()
 
         items_list = [
@@ -23,6 +23,10 @@ def read_txt_file(filename:str, separator:str = "\n") -> List[str]:
         return items_list
 
     except FileNotFoundError:
-        raise FileNotFoundError(f"File '{filename}' not found")
+        raise FileNotFoundError(f"File '{file_path}' not found")
     except PermissionError:
-        raise PermissionError(f"Permission denied to read '{filename}'")
+        raise PermissionError(f"Permission denied to read '{file_path}'")
+
+
+
+# print(len(read_txt_file(filename="outputs/(a-partovii)followers [2026-02-15_22;38].txt")))

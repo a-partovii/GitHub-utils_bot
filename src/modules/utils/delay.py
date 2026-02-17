@@ -48,5 +48,3 @@ def super_delay(message="", min=10, max=50, gap_og=8):
 def delay_and_super_delay(message="", min=5, max=15, super_min=10, super_max=50, super_gap=8):
     delay(message, min, max)
     super_delay(message, super_min, super_max, super_gap)
-
-

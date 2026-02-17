@@ -1,8 +1,8 @@
 import requests as req
 from datetime import datetime
 import os
-from modules.delay import delay
-from modules.write_in_file import write_in_file
+from modules.utils import delay
+from modules.file_modules import write_file
 from inputs.tokens import secondary_tokens, token_manager, make_headers
 
 def extract_usernames(target_username:str, source:str, output_type:str ="list"):
@@ -46,7 +46,7 @@ def extract_usernames(target_username:str, source:str, output_type:str ="list"):
         if output_type == "file": # "file" or "list" (default=List)
             try:
                 os.makedirs("outputs", exist_ok=True) # Create outputs folder if it doesn't exist
-                write_in_file(file_path=file_path, input_item=usernames_list, writing_mode="w")
+                write_file(file_path=file_path, input_item=usernames_list, writing_mode="w")
 
             except Exception as error:
                 print(f"Writing in the file was not successful, check this error and try again: \n{error}")

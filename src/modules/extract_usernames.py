@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 from modules.utils import delay
 from modules.file_modules import write_file
-from config import secondary_tokens, token_manager, make_headers
+from config.tokens import secondary_tokens, token_manager, make_headers
 
 def extract_usernames(target_username:str, source:str, output_type:str ="list"):
     """
@@ -33,7 +33,6 @@ def extract_usernames(target_username:str, source:str, output_type:str ="list"):
 
         if response.status_code != 200:
             print(f"Error: HTTP request failed ({response.status_code}): {response.reason}")
-
             break
 
         data_json = response.json()
@@ -52,7 +51,11 @@ def extract_usernames(target_username:str, source:str, output_type:str ="list"):
                 print(f"Writing in the file was not successful, check this error and try again: \n{error}")
 
         page += 1
-        delay(message=f'SUCCESS: "{len(usernames_list)}" usernames saved to "{file_path}"') # Random delay per request (2–6 seconds)
+
+        message = f'SUCCESS: "{len(usernames_list)}" usernames saved'
+        if output_type == "file":
+            message += f' to "{file_path}"'
+        delay(message ) # Random delay per request (2–6 seconds)
               
     if output_type == "file":
         print(f'SUCCESS: Extracting usernames is done, "{len(usernames_list)}" usernames saved to "{file_path}"')

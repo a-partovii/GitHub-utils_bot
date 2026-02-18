@@ -1,6 +1,6 @@
 from typing import List
 
-def read_txt_file(file_path:str, separator:str = "\n") -> List[str]:
+def read_file(file_path:str, separator:str = "\n") -> List[str]:
     """
     Read and extract elements from a text file based on the separator type.
 
@@ -26,7 +26,3 @@ def read_txt_file(file_path:str, separator:str = "\n") -> List[str]:
         raise FileNotFoundError(f"File '{file_path}' not found")
     except PermissionError:
         raise PermissionError(f"Permission denied to read '{file_path}'")
-
-
-
-# print(len(read_txt_file(filename="outputs/(a-partovii)followers [2026-02-15_22;38].txt")))

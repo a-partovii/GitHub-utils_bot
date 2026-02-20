@@ -1,6 +1,7 @@
 from config import primary_token, token_manager, make_headers
 from modules.utils import delay_and_super_delay, filter_file
 from modules.file_modules import write_file, delete_file
+from modules.utils import response_error_handler, network_error_handler
 import requests as req
 
 def follow(usernames: list[str], save_progress: bool = True) -> bool:
@@ -25,12 +26,13 @@ def follow(usernames: list[str], save_progress: bool = True) -> bool:
 
         # Network errors
         except req.RequestException as error:
-            message = f"[ERROR] Network Error, {type(error).__name__} while following -> {error}"
+            message = network_error_handler(error)
+            delay_and_super_delay(message, min=7, max=15)
             continue
 
         # Response handling
         status = response.status_code
-        remaining = response.headers.get("X-RateLimit-Remaining", "?")
+        remaining = response.headers.get("X-RateLimit-Remaining", "unknown")
 
         if status == 204: # Success
             total += 1
@@ -47,23 +49,8 @@ def follow(usernames: list[str], save_progress: bool = True) -> bool:
             message = f'[WARN] User Not Found: "{username}"'
             save_progress and filter_file(progress_file, username)
 
-        # Rate limit reached
-        elif status == 403 or int(remaining) <= 5:
-            message = f'[WARN] Token Rate Limit is Close to Being Reached, Remaining: "{remaining}"\n Take a break and continue later...'
-            return False
-
-        # Token error
-        elif status == 401:
-            print("[ERROR] Invalid or Expired Token.")
-            return False
-
-        # GitHub internal error
-        elif status >= 500:
-            message = f"[GITHUB] Server Error {status}"
-            continue
-
         else:
-            message = f"[ERROR] http={status} reason={response.reason}"
+            message = response_error_handler(response)
 
         delay_and_super_delay(message, min=7, max=15)
 

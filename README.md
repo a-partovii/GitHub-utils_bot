@@ -10,6 +10,8 @@ Todo:
 
 2. Add web session for connections
 
+3. Abilty to make custom scripts
+
 ---
 
 There are some issues with token management and tokens username extraction.

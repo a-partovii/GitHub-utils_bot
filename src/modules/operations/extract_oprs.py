@@ -1,6 +1,6 @@
-from modules.major_modules import extract_usernames, extract_bulk_usernames_to_follow
-from modules.utils import filter_list
-from config.tokens import primary_token, token_manager
+from modules.major_modules import extract_usernames
+from modules.file_modules import read_file
+from config.tokens import primary_token
 from modules.tui import print_in_columns, ask_output_type
 
 def extract_your_followers():
@@ -20,9 +20,26 @@ def extract_your_followers():
               print_in_columns(read_file(my_followers))
 
 # -----------------------------------------------------------------------------------------
+def extract_your_following():
+        output_type = ask_output_type()
+        my_username = next(iter(primary_token))
+        
+        my_following = extract_usernames(
+             target_username=my_username,
+             source="following",
+             output_type= output_type[1]
+        )
+
+        if output_type[0] == 1 :
+            print_in_columns(my_following)
+
+        elif output_type[0] == 3 :
+              print_in_columns(read_file(my_following))
+
+# -----------------------------------------------------------------------------------------
 extract_submenu = {
     "1": {"label": "Extract your followers usernames", "action": extract_your_followers},
-    # "2": {"label": "Extract your following usernames", "action": extract_your_following},
+    "2": {"label": "Extract your following usernames", "action": extract_your_following},
     # "3": {"label": "Extract usernames you follow who don't follow you back", "action": extract_non_followers},
     # "4": {"label": "Extract a user's followers", "action": extract_from_followers},
     # "5": {"label": "Extract a user's following", "action": extract_from_following},

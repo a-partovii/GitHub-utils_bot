@@ -13,8 +13,11 @@ def extract_your_followers():
              output_type= output_type[1]
         )
 
-        if output_type[0] != 2:
+        if output_type[0] == 1 :
             print_in_columns(my_followers)
+
+        elif output_type[0] == 3 :
+              print_in_columns(read_file(my_followers))
 
 # -----------------------------------------------------------------------------------------
 extract_submenu = {

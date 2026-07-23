@@ -5,9 +5,9 @@ from config.tokens import primary_token
 from modules.tui import print_in_columns, ask_output_type
 
 def extract_your_followers():
-        output_type = ask_output_type()
-        my_username = next(iter(primary_token))
-        
+    output_type = ask_output_type()
+    my_username = next(iter(primary_token))
+    try:
         my_followers = extract_usernames(
              target_username=my_username,
              source="followers",
@@ -19,12 +19,15 @@ def extract_your_followers():
 
         elif output_type[0] == 3 :
               print_in_columns(read_file(my_followers))
+        
+    except Exception as error:
+        print(f"[ERROR] {error}")
 
 # -----------------------------------------------------------------------------------------
 def extract_your_following():
-        output_type = ask_output_type()
-        my_username = next(iter(primary_token))
-        
+    output_type = ask_output_type()
+    my_username = next(iter(primary_token))
+    try:
         my_following = extract_usernames(
              target_username=my_username,
              source="following",
@@ -36,6 +39,9 @@ def extract_your_following():
 
         elif output_type[0] == 3 :
               print_in_columns(read_file(my_following))
+
+    except Exception as error:
+        print(f"[ERROR] {error}")
 
 # -----------------------------------------------------------------------------------------
 def extract_non_follower_following():

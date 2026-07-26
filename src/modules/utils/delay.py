@@ -1,5 +1,4 @@
-import time
-import random
+import time, random
 from .random_in_range import random_in_range
 from rich.live import Live
 from rich.console import Console

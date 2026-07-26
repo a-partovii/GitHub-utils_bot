@@ -12,7 +12,7 @@ Todo:
 
 3. Add a few lightweight, random requests between the main requests to break up consecutive repeated requests and potentially reduce the risk of being flagged or banned.
 
-4. Abilty to make custom scripts
+4. Add 'app_data' directory for user's data like "my_followers", etc
 
 ---
 

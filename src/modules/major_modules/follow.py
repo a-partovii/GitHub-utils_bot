@@ -8,7 +8,8 @@ def follow(
         usernames:list[str],
         save_progress:bool =True,
         skip_followed:bool =True,
-        skip_blacklist:bool =True) -> bool :
+        skip_blacklist:bool =True,
+        skip_greylist:bool =True) -> bool :
     """
     Follow a list of GitHub usernames using the provided token.
 
@@ -16,7 +17,7 @@ def follow(
         usernames (list[str]): A list of GitHub usernames to follow.
         save_progress (bool): Whether to save progress in a file for resuming later.
         skip_blacklist (bool): Whether to skip usernames that are in the blacklist.
-    
+        skip_greylist (bool): Whether to skip usernames that are in the greylist.
     Returns:
         bool: True if the process completed successfully, False otherwise.
     """
@@ -25,6 +26,9 @@ def follow(
     if skip_blacklist:
         usernames = filter_list(usernames, read_file("config/blacklist.txt"))
                         
+    if skip_greylist:
+        usernames = filter_list(usernames, read_file("config/greylist.txt"))
+        
     if skip_followed: # Filter accounts already followed 
         my_username = next(iter(primary_token))
         usernames = filter_list(usernames, extract_usernames(my_username, "following", show_message=False)) 

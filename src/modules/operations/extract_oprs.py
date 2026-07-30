@@ -18,6 +18,9 @@ def extract_your_followers():
             print_in_columns(my_followers)
 
         elif output_type[0] == 3 :
+               """ When the 'output_type' argument in the 'extract_usernames()' function is set to "file",
+               the function returns the path of the output file.
+               Therefore, here the "my_following" variable contains this path."""
               print_in_columns(read_file(my_followers))
         
     except Exception as error:

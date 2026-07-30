@@ -18,7 +18,7 @@ def extract_your_followers():
             print_in_columns(my_followers)
 
         elif output_type[0] == 3 :
-               """ When the 'output_type' argument in the 'extract_usernames()' function is set to "file",
+              """ When the 'output_type' argument in the 'extract_usernames()' function is set to "file",
                the function returns the path of the output file.
                Therefore, here the "my_following" variable contains this path."""
               print_in_columns(read_file(my_followers))
@@ -71,13 +71,34 @@ def extract_non_follower_following():
 
     except Exception as error:
         print(f"[ERROR] {error}")
-        
+
+# -----------------------------------------------------------------------------------------
+def extract_from_followers():
+    output_type = ask_output_type()
+
+    try:
+        target_username = input("Enter a username to extract their followers: ")
+        usernames = extract_usernames(
+             target_username=target_username,
+             source="followers",
+             output_type= output_type[1]
+        )
+
+        if output_type[0] == 1 :
+            print_in_columns(usernames)
+
+        elif output_type[0] == 3 :
+              print_in_columns(read_file(usernames))
+
+    except Exception as error:
+        print(f"[ERROR] {error}")
+
 # -----------------------------------------------------------------------------------------
 extract_submenu = {
     "1": {"label": "Extract your followers usernames", "action": extract_your_followers},
     "2": {"label": "Extract your following usernames", "action": extract_your_following},
     "3": {"label": "Extract usernames you follow who don't follow you back", "action": extract_non_follower_following},
-    # "4": {"label": "Extract a user's followers", "action": extract_from_followers},
+    "4": {"label": "Extract a user's followers", "action": extract_from_followers},
     # "5": {"label": "Extract a user's following", "action": extract_from_following},
     # "6": {"label": "Extract usernames of users who starred your repositories", "action": extract_my_stargazers},
     # "7": {"label": "Extract usernames of users who starred a given user's repositories", "action": extract_user_stargazers},

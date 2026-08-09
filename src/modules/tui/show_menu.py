@@ -1,4 +1,6 @@
-def show_menu(menu_dict:dict) :
+def show_menu(menu_dict:dict,
+              header_msg:str ="Choose an option to continue:\n",
+              footer_msg:str ="Enter your choice: " ) :
     """
     Display a menu and execute the selected action.
 
@@ -14,13 +16,13 @@ def show_menu(menu_dict:dict) :
     """
     while True:
         # Display menu options
-        print("Choose an option to continue:\n")
+        print(header_msg)
         for key, item in menu_dict.items():
             print(f"{key}. {item['label']}")
 
         print()
         while True: # Ask user until a valid choice
-            choice = input("Enter your choice: ").strip()
+            choice = input(footer_msg).strip()
 
             if choice in menu_dict:
                 break

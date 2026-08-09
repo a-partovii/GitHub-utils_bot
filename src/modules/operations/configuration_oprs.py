@@ -1,5 +1,6 @@
 from modules.file_modules import read_file, write_file
 from modules.tui import print_in_columns, show_menu
+from modules.utils import filter_list
 
 def adjust_files_menu(list_name:str, file_path:str):
     _ = {
@@ -34,9 +35,9 @@ def add_usernames_to_file(list_name:str, file_path:str):
     if not usernames:
         print("No usernames entered. Operation cancelled.")
         return
-    
+    filter_list(usernames, read_file(file_path))
     write_file(file_path, input_item=usernames)
-    print(f"[Success] {len(usernames)} usernames adder to {list_name}")
+    print(f"[SUCCESS] {len(usernames)} usernames adder to {list_name}")
 
 # -----------------------------------------------------------------------------------------
 config_submenu = {
@@ -46,3 +47,4 @@ config_submenu = {
     "4": {"label": "Manage GitHub tokens", "action": ""}
     # "0": {"label": "Back to main menu", "action": return_to_main},
 }
+

@@ -8,8 +8,8 @@ def adjust_files_menu(list_name:str, file_path:str):
     "2": {"label": f"Add new usernames to {list_name}", "action": lambda: add_usernames_to_file(list_name, file_path)},
     "3": {"label": f"Remove usernames from {list_name}", "action": lambda:remove_usernames_from_file(list_name, file_path)},
     "4": {"label": f"Reset {list_name}", "action": lambda: reset_file_list(list_name, file_path)},
-    "0": {"label": "Exit menu", "action": ""}
-}
+    # "0": {"label": "Exit menu", "action": ""}
+    }
     show_menu(_)
 
 # -----------------------------------------------------------------------------------------
@@ -30,7 +30,7 @@ def add_usernames_to_file(list_name:str, file_path:str):
         if user_input == "" : 
             break
         usernames.append(user_input)
-        print(f"[OK] {len(usernames)} recived to add to {list_name}")
+        print(f"[OK] {len(usernames)} username recived to add to {list_name}")
 
     if not usernames:
         print("No usernames entered. Operation cancelled.")
@@ -57,7 +57,7 @@ def remove_usernames_from_file(list_name:str, file_path:str):
         if user_input == "" : 
             break
         usernames.append(user_input)
-        print(f"[OK] {len(usernames)} recived to remove from {list_name}")
+        print(f"[OK] {len(usernames)} usernames recived to remove from {list_name}")
 
     if not usernames:
         print("No usernames entered. Operation cancelled.")
@@ -80,9 +80,9 @@ def reset_file_list(list_name:str, file_path:str):
         print(f"[ERROR] Failed to reset {list_name}: {error}")
 # -----------------------------------------------------------------------------------------
 config_submenu = {
-    "1": {"label": "Adjust Blacklist", "action": ""},
-    "2": {"label": "Adjust Whitelist", "action": ""},
-    "3": {"label": "Adjust Greylist", "action": ""},
+    "1": {"label": "Adjust Blacklist", "action": lambda: adjust_files_menu("Blacklist", "config/blacklist.txt")},
+    "2": {"label": "Adjust Whitelist", "action": lambda: adjust_files_menu("Whitelist", "config/whitelist.txt")},
+    "3": {"label": "Adjust Greylist", "action": lambda: adjust_files_menu("Greylist", "config/greylist.txt")},
     "4": {"label": "Manage GitHub tokens", "action": ""}
     # "0": {"label": "Back to main menu", "action": return_to_main},
 }

@@ -7,7 +7,7 @@ def adjust_files_menu(list_name:str, file_path:str):
     "1": {"label": f"Show {list_name}", "action": lambda: print_in_columns(read_file(file_path))},
     "2": {"label": f"Add new usernames to {list_name}", "action": lambda: add_usernames_to_file(list_name, file_path)},
     "3": {"label": f"Remove usernames from {list_name}", "action": lambda:remove_usernames_from_file(list_name, file_path)},
-    "4": {"label": f"Reset {list_name}", "action": lambda: ""},
+    "4": {"label": f"Reset {list_name}", "action": lambda: reset_file_list(list_name, file_path)},
     "0": {"label": "Exit menu", "action": ""}
 }
     show_menu(_)
@@ -66,6 +66,18 @@ def remove_usernames_from_file(list_name:str, file_path:str):
     filter_file(file_path=file_path, filter_items=usernames),
     print(f"[SUCCESS] {len(usernames)} usernames removed from {list_name}")
 
+# -----------------------------------------------------------------------------------------
+def reset_file_list(list_name:str, file_path:str):
+    user_input = input( f"You are about to reset the entire {list_name}.\n"
+                       f"This action cannot be undone. Are you sure you want to continue? [y/N]: ")
+    if user_input.strip().lower() != 'y':
+        print("Operation cancelled.")
+        return
+    try:
+        write_file(file_path, input_item="", writing_mode="w")
+        print(f"[SUCCESS] {list_name} has been reset.")
+    except Exception as error:
+        print(f"[ERROR] Failed to reset {list_name}: {error}")
 # -----------------------------------------------------------------------------------------
 config_submenu = {
     "1": {"label": "Adjust Blacklist", "action": ""},

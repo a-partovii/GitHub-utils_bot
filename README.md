@@ -15,5 +15,5 @@ Todo:
 ---
 
 There are some issues with token management and tokens username extraction.
-The first release will be just an MVP, and more professional methods will replace the old ones in future versions.
+The first release will be just a MVP, and more professional methods will replace the old ones in future versions.
 It also includes other configuration adjustments.

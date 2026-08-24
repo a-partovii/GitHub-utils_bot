@@ -22,6 +22,8 @@ def delay(message="", min=2, max=6):
             max = min + 1
         else:
             raise error
+    except Exception as error:
+        raise error
 # -----------------------
 
 gap = 0
@@ -36,8 +38,9 @@ def super_delay(message="", min=10, max=50, gap_og=8):
         delay(message, min, max)
         gap = random_in_range(gap_og, variance_ratio=0.25)
         run_count = 0
- # ---------------------------
+# ---------------------------
 
+# ---------------------------
 def delay_and_super_delay(message="", min=5, max=15, super_min=10, super_max=50, super_gap=8):
     delay(message, min, max)
     super_delay(message, super_min, super_max, super_gap)
